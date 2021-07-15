@@ -1,5 +1,15 @@
 import Phaser from 'phaser';
 import logoImg from './assets/logo.png';
+import apiUrl from './config.js'
+
+const gameState = {}
+
+const userData = `{
+    "credentials": {
+        "user_name": "joe",
+        "password": "hi"
+    }
+}`
 
 class MyGame extends Phaser.Scene
 {
@@ -15,16 +25,18 @@ class MyGame extends Phaser.Scene
       
     create ()
     {
-        const logo = this.add.image(400, 150, 'logo');
-      
-        this.tweens.add({
-            targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: "Power2",
-            yoyo: true,
-            loop: -1
-        });
+        gameState.player = this.add.image(400, 300, 'logo')
+        gameState.player.setInteractive()
+        gameState.player.on('pointerdown', () => {
+            fetch('http://localhost:4741/sign-in', {
+                method: 'POST',
+                headers: {
+                  "Content-type": "application/json"
+                },
+                body: userData
+              })
+                .then(req => console.log(req))
+        })
     }
 }
 
