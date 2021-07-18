@@ -1,4 +1,5 @@
 import { CST, gameState } from "../CST"
+
 export class MenuScene extends Phaser.Scene{
     constructor() {
         super({
@@ -82,7 +83,8 @@ export class MenuScene extends Phaser.Scene{
             gameState.user_name = null
             gameState.password = null
             // gameState.player = this.physics.add.sprite(400, 300, 'crab')
-            
+            this.scene.start(CST.SCENES.MAINGAME)
+
         })
     }
 }

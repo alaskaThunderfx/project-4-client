@@ -1,20 +1,22 @@
 import Phaser from 'phaser';
-import logoImg from './assets/logo.png';
-import { SignIn } from './api.js'
+import { CST, gameState } from './CST';
 import { LoadScene } from './scenes/LoadScene';
 import { MenuScene } from './scenes/MenuScene';
+import { MainGame } from './scenes/MainGame';
 
 // 72 x 36
 // 86 x 36
 
-const gameState = {}
+// const gameState = {}
 var starfish
 
 class MyGame extends Phaser.Scene
 {
     constructor ()
     {
-        super();
+        super({
+            key: CST.SCENES.INDEX
+        });
     }
 
     preload ()
@@ -51,8 +53,8 @@ class MyGame extends Phaser.Scene
             frameRate: 10,
             repeat: -1
         })
-        // gameState.player = this.physics.add.sprite(400, 300, 'crab')
-        gameState.player = null
+        gameState.player = this.physics.add.sprite(400, 300, 'crab')
+        // gameState.player = null
         var crabWalk = this.add.sprite(400, 200, 'crab2')
         var signUp = this.add.image(72, 36, 'crab')
         var signIn = this.add.image(144, 36, 'crab')
@@ -409,6 +411,7 @@ const config = {
     scene: [
         LoadScene,
         MenuScene,
+        MainGame,
         MyGame
     ]
 };
