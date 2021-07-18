@@ -18,7 +18,7 @@ class MyGame extends Phaser.Scene
     {
         this.load.image('bg', 'https://i.imgur.com/SAKDIFy.png');
         this.load.spritesheet('crab', 'https://i.imgur.com/FjjhOKR.png', { frameWidth: 71, frameHeight: 36 })
-        this.load.spritesheet('crab2', 'https://i.imgur.com/glMZSfU.png', { frameWidth: 84, frameHeight: 36})
+        this.load.spritesheet('crab2', 'https://i.imgur.com/glMZSfU.png', { frameWidth: 83.5, frameHeight: 36})
     }
       
     create ()
@@ -26,6 +26,11 @@ class MyGame extends Phaser.Scene
         this.add.image(400, 400, 'bg')
 
         gameState.cursors = this.input.keyboard.createCursorKeys()
+        gameState.leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
+        gameState.rightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
+        gameState.upKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
+        gameState.downKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
+
 
         this.anims.create({
             key: 'stand',
@@ -326,30 +331,43 @@ class MyGame extends Phaser.Scene
     }
 
     update () {
-        if (gameState.active) {
-            if (gameState.cursors.left.isDown) {
-                gameState.player.play('walk', true)
-                gameState.player.flipX = true
-                gameState.player.setVelocityX(-160)
-                gameState.player.setVelocityY(0)
-            } else if (gameState.cursors.right.isDown) {
-                gameState.player.play('walk', true)
-                gameState.player.flipX = false
-                gameState.player.setVelocityX(160)
-                gameState.player.setVelocityY(0)
-            } else if (gameState.cursors.up.isDown) {
-                gameState.player.play('walk', true)
-                gameState.player.setVelocityY(-160)
-                gameState.player.setVelocityX(0)
-            } else if (gameState.cursors.down.isDown) {
-                gameState.player.play('walk', true)
-                gameState.player.setVelocityY(160)
-                gameState.player.setVelocityX(0)
-            } else {
-                gameState.player.play('stand')
-                gameState.player.setVelocityX(0)
-                gameState.player.setVelocityY(0)
-            }
+        if (Phaser.Input.Keyboard.JustDown(gameState.upKey)) {
+            gameState.player.play('walk')
+        } else if (Phaser.Input.Keyboard.JustDown(gameState.downKey)) {
+            gameState.player.play('walk')
+        } else if (Phaser.Input.Keyboard.JustDown(gameState.leftKey)) {
+            gameState.player.play('walk')
+            gameState.player.flipX = true
+        } else if (Phaser.Input.Keyboard.JustDown(gameState.rightKey)) {
+            gameState.player.play('walk')
+            gameState.player.flipX = false
+        }
+
+        if (Phaser.Input.Keyboard.JustUp(gameState.upKey)) {
+            gameState.player.play('stand')
+        } else if (Phaser.Input.Keyboard.JustUp(gameState.downKey)) {
+            gameState.player.play('stand')
+        } else if (Phaser.Input.Keyboard.JustUp(gameState.leftKey)) {
+            gameState.player.play('stand')
+        } else if (Phaser.Input.Keyboard.JustUp(gameState.rightKey)) {
+            gameState.player.play('stand')
+        }
+
+        if (gameState.cursors.left.isDown) {
+            gameState.player.setVelocityX(-160)
+            gameState.player.setVelocityY(0)
+        } else if (gameState.cursors.right.isDown) {
+            gameState.player.setVelocityX(160)
+            gameState.player.setVelocityY(0)
+        } else if (gameState.cursors.up.isDown) {
+            gameState.player.setVelocityY(-160)
+            gameState.player.setVelocityX(0)
+        } else if (gameState.cursors.down.isDown) {
+            gameState.player.setVelocityY(160)
+            gameState.player.setVelocityX(0)
+        } else {
+            gameState.player.setVelocityX(0)
+            gameState.player.setVelocityY(0)
         }
     }
 }
