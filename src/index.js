@@ -16,13 +16,17 @@ class MyGame extends Phaser.Scene
 
     preload ()
     {
-        this.load.image('logo', logoImg);
+        this.load.image('bg', 'https://i.imgur.com/SAKDIFy.png');
         this.load.spritesheet('crab', 'https://i.imgur.com/FjjhOKR.png', { frameWidth: 71, frameHeight: 36 })
         this.load.spritesheet('crab2', 'https://i.imgur.com/glMZSfU.png', { frameWidth: 84, frameHeight: 36})
     }
       
     create ()
     {
+        this.add.image(400, 400, 'bg')
+
+        gameState.cursors = this.input.keyboard.createCursorKeys()
+
         this.anims.create({
             key: 'stand',
             frames: this.anims.generateFrameNumbers('crab'),
@@ -36,7 +40,7 @@ class MyGame extends Phaser.Scene
             frameRate: 10,
             repeat: -1
         })
-        gameState.player = this.add.sprite(400, 300, 'crab')
+        gameState.player = this.physics.add.sprite(400, 300, 'crab')
         var crabWalk = this.add.sprite(400, 200, 'crab2')
         var signUp = this.add.image(72, 36, 'crab')
         var signIn = this.add.image(144, 36, 'crab')
@@ -317,34 +321,36 @@ class MyGame extends Phaser.Scene
 
 
         gameState.player.play('stand')
-        crabWalk.play('walk')
+        // crabWalk.play('walk')
         gameState.player.setInteractive()
-        gameState.player.on('pointerdown', () => {
-            gameState.user_name = prompt('Enter a user name please!')
-            if (gameState.user_name === 'undefined') {
+    }
 
+    update () {
+        if (gameState.active) {
+            if (gameState.cursors.left.isDown) {
+                gameState.player.play('walk', true)
+                gameState.player.flipX = true
+                gameState.player.setVelocityX(-160)
+                gameState.player.setVelocityY(0)
+            } else if (gameState.cursors.right.isDown) {
+                gameState.player.play('walk', true)
+                gameState.player.flipX = false
+                gameState.player.setVelocityX(160)
+                gameState.player.setVelocityY(0)
+            } else if (gameState.cursors.up.isDown) {
+                gameState.player.play('walk', true)
+                gameState.player.setVelocityY(-160)
+                gameState.player.setVelocityX(0)
+            } else if (gameState.cursors.down.isDown) {
+                gameState.player.play('walk', true)
+                gameState.player.setVelocityY(160)
+                gameState.player.setVelocityX(0)
+            } else {
+                gameState.player.play('stand')
+                gameState.player.setVelocityX(0)
+                gameState.player.setVelocityY(0)
             }
-            gameState.password = prompt('Enter a password please!')
-            gameState.password_conf = prompt('Confirm your password please!')
-            userData = `{
-                "credentials": {
-                    "user_name": "${gameState.user_name}",
-                    "password": "${gameState.password}",
-                    "password_confirmation": "${gameState.password_conf}"
-                }
-            }`
-        })
-        gameState.player.on('pointerdown', () => {
-            fetch('http://localhost:4741/sign-up', {
-                method: 'POST',
-                headers: {
-                  "Content-type": "application/json"
-                },
-                body: userData
-              })
-                .then(req => console.log(req))
-            console.log('after post request, :\n', typeof gameState.user_name)
-        })
+        }
     }
 }
 
@@ -353,6 +359,14 @@ const config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            enableBody: true,
+            // debug: true 
+        }
+        
+    },
     scene: MyGame
 };
 
