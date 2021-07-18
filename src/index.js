@@ -1,11 +1,14 @@
 import Phaser from 'phaser';
 import logoImg from './assets/logo.png';
 import { SignIn } from './api.js'
+import { LoadScene } from './scenes/LoadScene';
+import { MenuScene } from './scenes/MenuScene';
 
 // 72 x 36
 // 86 x 36
 
 const gameState = {}
+var starfish
 
 class MyGame extends Phaser.Scene
 {
@@ -16,7 +19,8 @@ class MyGame extends Phaser.Scene
 
     preload ()
     {
-        this.load.image('bg', 'https://i.imgur.com/SAKDIFy.png');
+        this.load.image('bg', 'https://i.imgur.com/SAKDIFy.png')
+        this.load.image('starfish', 'https://i.imgur.com/Hpnxa6Y.png')
         this.load.spritesheet('crab', 'https://i.imgur.com/FjjhOKR.png', { frameWidth: 71, frameHeight: 36 })
         this.load.spritesheet('crab2', 'https://i.imgur.com/glMZSfU.png', { frameWidth: 83.5, frameHeight: 36})
     }
@@ -24,6 +28,8 @@ class MyGame extends Phaser.Scene
     create ()
     {
         this.add.image(400, 400, 'bg')
+
+        gameState.isActive = false
 
         gameState.cursors = this.input.keyboard.createCursorKeys()
         gameState.leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
@@ -45,7 +51,8 @@ class MyGame extends Phaser.Scene
             frameRate: 10,
             repeat: -1
         })
-        gameState.player = this.physics.add.sprite(400, 300, 'crab')
+        // gameState.player = this.physics.add.sprite(400, 300, 'crab')
+        gameState.player = null
         var crabWalk = this.add.sprite(400, 200, 'crab2')
         var signUp = this.add.image(72, 36, 'crab')
         var signIn = this.add.image(144, 36, 'crab')
@@ -81,12 +88,21 @@ class MyGame extends Phaser.Scene
         })
 
         charDataCrab.on('pointerdown', () => {
+            if (gameState.isActive === false) {
+                starfish = this.add.image(400, 400, 'starfish')
+                gameState.isActive = true
+            } else {
+                starfish.destroy()
+                starfish = null
+                gameState.isActive = false
+            }
             console.log('You pressed Character Data crab! Here\'s your data!')
             console.log(gameState.characterData)
             console.log('Here\'s also the Show Chatacter Data!')
             console.log(gameState.showCharacterData)
             console.log('Here\'s your chacaters inventory')
             console.log(gameState.showCharacterData.character.inventory)
+            
         })
 
         signUp.on('pointerdown', () => {
@@ -147,6 +163,7 @@ class MyGame extends Phaser.Scene
             }) 
             gameState.user_name = null
             gameState.password = null
+            gameState.player = this.physics.add.sprite(400, 300, 'crab')
         })
 
         signOut.on('pointerdown', () => {
@@ -369,6 +386,10 @@ class MyGame extends Phaser.Scene
             gameState.player.setVelocityX(0)
             gameState.player.setVelocityY(0)
         }
+
+        if (starfish) {
+            starfish.rotation += 0.05
+        }
     }
 }
 
@@ -376,7 +397,7 @@ const config = {
     type: Phaser.AUTO,
     parent: 'phaser-example',
     width: 800,
-    height: 600,
+    height: 800,
     physics: {
         default: 'arcade',
         arcade: {
@@ -385,7 +406,11 @@ const config = {
         }
         
     },
-    scene: MyGame
+    scene: [
+        LoadScene,
+        MenuScene,
+        MyGame
+    ]
 };
 
 const game = new Phaser.Game(config);
