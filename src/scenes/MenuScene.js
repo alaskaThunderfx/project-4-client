@@ -20,8 +20,11 @@ export class MenuScene extends Phaser.Scene{
         this.add.image(0, 0, 'bg').setOrigin(0).setDepth(0)
         // new account star
         let newAccount = this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2, 'starfish').setDepth(1)
+        this.add.text(this.game.renderer.width / 2 + 30, this.game.renderer.height / 2, 'New User', { color: 'black'}).setDepth(1)
         // returning user start
         let returningUser = this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2 + 100, 'starfish').setDepth(1)
+        this.add.text(this.game.renderer.width / 2 + 30, this.game.renderer.height / 2 + 100, 'Returning User', { color: 'black' }).setDepth(1)
+
 
         newAccount.setInteractive()
         returningUser.setInteractive()
