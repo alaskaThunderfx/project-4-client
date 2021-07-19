@@ -5,6 +5,7 @@ import { MenuScene } from './scenes/MenuScene';
 import { MainGame } from './scenes/MainGame';
 import { LoggedInScene } from './scenes/LoggedInScene';
 import { PickedCharacterScene } from './scenes/PickedCharacterScene';
+import { InventoryScene } from './scenes/InventoryScene';
 
 // 72 x 36
 // 86 x 36
@@ -416,6 +417,7 @@ const config = {
         LoggedInScene,
         PickedCharacterScene,
         MainGame,
+        InventoryScene,
         MyGame
     ]
 };

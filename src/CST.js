@@ -5,6 +5,7 @@ export const CST = {
         MAINGAME: "MAINGAME",
         INDEX: "INDEX",
         PICKEDCHARACTER: "PICKEDCHARACTER",
+        INVENTORY: "INVENTORY",
         LOGGEDIN: "LOGGEDIN"
     }
 }

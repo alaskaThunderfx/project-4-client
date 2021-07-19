@@ -68,12 +68,7 @@ export class LoggedInScene extends Phaser.Scene{
                 },
                 body: userData
               })
-                .then(res => { 
-                    return res.json().then(data => {
-                        gameState.user = data
-                        return data
-                    }) 
-                })
+                .then(res => console.log(res)) 
         })
 
         createCharacter.on('pointerdown', () => {

@@ -1,7 +1,8 @@
 import { CST, gameState } from "../CST"
 
 var starfish
-var clams = []
+
+
 
 export class MainGame extends Phaser.Scene{
     constructor() {
@@ -16,6 +17,8 @@ export class MainGame extends Phaser.Scene{
 
     }
     create(char) {
+        let toggle = false
+        var clams = []
         // background
         this.add.image(400, 400, 'bg')
         // go back starfish
@@ -27,13 +30,13 @@ export class MainGame extends Phaser.Scene{
         this.add.text(80, 750, 'Inventory', { color: 'black' }).setDepth(1)
         inventory.setInteractive()
 
-        // for (let i = 0; i < 5; i++) {
-        //     clams.push(this.add.sprite(Phaser.Math.Between(100, 700), Phaser.Math.Between(100, 700), 'clam'))
-        //     clams[i].setInteractive()
-        // }
-        let clam = this.add.image(400, 400, 'clam')
-        clam.setSize(40, 30)
-        this.physics.world.enable(clam);
+        for (let i = 0; i < 5; i++) {
+            clams.push(this.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(100, 700), 'clam'))
+            // clams[i].setInteractive()
+        }
+        // let clam = this.add.image(400, 400, 'clam')
+        // clam.setSize(40, 30)
+        // this.physics.world.enable(clam);
 
         gameState.isActive = false
 
@@ -65,7 +68,12 @@ export class MainGame extends Phaser.Scene{
         this.physics.world.enable(gameState.player);
         gameState.player.setInteractive()
 
-        this.physics.add.collider(clam, gameState.player, function(thing) {
+        clams.forEach(clam => {
+            clam.setSize(40,30)
+            this.physics.world.enable(clam)
+            })
+
+        this.physics.add.collider(clams, gameState.player, function(thing) {
             thing.destroy()
             char.inventory.push('clam')
             console.log(char)
@@ -87,11 +95,18 @@ export class MainGame extends Phaser.Scene{
         })
 
         inventory.on('pointerdown', () => {
-            console.log(char.inventory)
-            // this.scene.start(CST.SCENES.MAINGAME, char)
+            if (toggle === false) {
+                this.scene.launch(CST.SCENES.INVENTORY, char.inventory)
+                toggle = true
+            } else {
+                this.scene.stop(CST.SCENES.INVENTORY)
+                toggle = false
+            }
         })
 
-        goBack.on ('pointerdown', () => {
+        goBack.on('pointerdown', () => {
+            clams.forEach(clam => clam.destroy())
+            this.scene.stop(CST.SCENES.INVENTORY)
             this.scene.start(CST.SCENES.LOGGEDIN)
         })
     }
