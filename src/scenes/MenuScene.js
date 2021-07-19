@@ -21,7 +21,7 @@ export class MenuScene extends Phaser.Scene{
         // new account star
         let newAccount = this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2, 'starfish').setDepth(1)
         this.add.text(this.game.renderer.width / 2 + 30, this.game.renderer.height / 2, 'New User', { color: 'black'}).setDepth(1)
-        // returning user start
+        // returning user star
         let returningUser = this.add.image(this.game.renderer.width / 2, this.game.renderer.height / 2 + 100, 'starfish').setDepth(1)
         this.add.text(this.game.renderer.width / 2 + 30, this.game.renderer.height / 2 + 100, 'Returning User', { color: 'black' }).setDepth(1)
 
@@ -86,7 +86,7 @@ export class MenuScene extends Phaser.Scene{
             gameState.user_name = null
             gameState.password = null
             // gameState.player = this.physics.add.sprite(400, 300, 'crab')
-            this.scene.start(CST.SCENES.MAINGAME)
+            this.scene.start(CST.SCENES.LOGGEDIN)
 
         })
     }

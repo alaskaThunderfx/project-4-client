@@ -3,7 +3,8 @@ export const CST = {
         LOAD: "LOAD",
         MENU: "MENU",
         MAINGAME: "MAINGAME",
-        INDEX: "INDEX"
+        INDEX: "INDEX",
+        LOGGEDIN: "LOGGEDIN"
     }
 }
 

@@ -3,6 +3,7 @@ import { CST, gameState } from './CST';
 import { LoadScene } from './scenes/LoadScene';
 import { MenuScene } from './scenes/MenuScene';
 import { MainGame } from './scenes/MainGame';
+import { LoggedInScene } from './scenes/LoggedInScene';
 
 // 72 x 36
 // 86 x 36
@@ -411,6 +412,7 @@ const config = {
     scene: [
         LoadScene,
         MenuScene,
+        LoggedInScene,
         MainGame,
         MyGame
     ]
