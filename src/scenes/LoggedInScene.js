@@ -158,8 +158,8 @@ export class LoggedInScene extends Phaser.Scene{
                         })
                     }
                 })
-                    console.log(gameState.userData)
-                    return gameState.characterData = data
+                    // console.log(gameState.userData)
+                    // return gameState.characterData = data
             })
         }
     }

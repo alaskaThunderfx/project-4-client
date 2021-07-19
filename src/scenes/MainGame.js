@@ -48,9 +48,12 @@ export class MainGame extends Phaser.Scene{
             repeat: -1
         })
 
-        gameState.player = this.physics.add.sprite(400, 300, 'crab')
-        gameState.player.play('stand')
+        gameState.player = this.add.container(400, 300, [this.physics.add.sprite(0, 0, 'crab'), this.add.text(-30, -40, char.name, { color: 'black' })])
+        gameState.player.list[0].play('stand')
         // crabWalk.play('walk')
+        // var hitArea = new Phaser.Geom.Rectangle(0, 0, 72, 36)
+        gameState.player.setSize(72, 30)
+        this.physics.world.enable(gameState.player);
         gameState.player.setInteractive()
 
         inventory.on('pointerdown', () => {
@@ -65,42 +68,42 @@ export class MainGame extends Phaser.Scene{
     update() {
         
         if (Phaser.Input.Keyboard.JustDown(gameState.upKey)) {
-            gameState.player.play('walk')
+            gameState.player.list[0].play('walk')
         } else if (Phaser.Input.Keyboard.JustDown(gameState.downKey)) {
-            gameState.player.play('walk')
+            gameState.player.list[0].play('walk')
         } else if (Phaser.Input.Keyboard.JustDown(gameState.leftKey)) {
-            gameState.player.play('walk')
-            gameState.player.flipX = true
+            gameState.player.list[0].play('walk')
+            gameState.player.list[0].flipX = true
         } else if (Phaser.Input.Keyboard.JustDown(gameState.rightKey)) {
-            gameState.player.play('walk')
-            gameState.player.flipX = false
+            gameState.player.list[0].play('walk')
+            gameState.player.list[0].flipX = false
         }
 
         if (Phaser.Input.Keyboard.JustUp(gameState.upKey)) {
-            gameState.player.play('stand')
+            gameState.player.list[0].play('stand')
         } else if (Phaser.Input.Keyboard.JustUp(gameState.downKey)) {
-            gameState.player.play('stand')
+            gameState.player.list[0].play('stand')
         } else if (Phaser.Input.Keyboard.JustUp(gameState.leftKey)) {
-            gameState.player.play('stand')
+            gameState.player.list[0].play('stand')
         } else if (Phaser.Input.Keyboard.JustUp(gameState.rightKey)) {
-            gameState.player.play('stand')
+            gameState.player.list[0].play('stand')
         }
 
         if (gameState.cursors.left.isDown) {
-            gameState.player.setVelocityX(-160)
-            gameState.player.setVelocityY(0)
+            gameState.player.body.setVelocityX(-160)
+            gameState.player.body.setVelocityY(0)
         } else if (gameState.cursors.right.isDown) {
-            gameState.player.setVelocityX(160)
-            gameState.player.setVelocityY(0)
+            gameState.player.body.setVelocityX(160)
+            gameState.player.body.setVelocityY(0)
         } else if (gameState.cursors.up.isDown) {
-            gameState.player.setVelocityY(-160)
-            gameState.player.setVelocityX(0)
+            gameState.player.body.setVelocityY(-160)
+            gameState.player.body.setVelocityX(0)
         } else if (gameState.cursors.down.isDown) {
-            gameState.player.setVelocityY(160)
-            gameState.player.setVelocityX(0)
+            gameState.player.body.setVelocityY(160)
+            gameState.player.body.setVelocityX(0)
         } else {
-            gameState.player.setVelocityX(0)
-            gameState.player.setVelocityY(0)
+            gameState.player.body.setVelocityX(0)
+            gameState.player.body.setVelocityY(0)
         }
 
         if (starfish) {
