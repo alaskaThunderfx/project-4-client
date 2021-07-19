@@ -1,5 +1,7 @@
+import { apiUrl } from './../config.js'
 import { CST, gameState } from "../CST"
 
+console.log()
 export class MenuScene extends Phaser.Scene{
     constructor() {
         super({
@@ -41,7 +43,7 @@ export class MenuScene extends Phaser.Scene{
                     "password_confirmation": "${gameState.password_conf}"
                 }
             }`
-            fetch('http://localhost:4741/sign-up', {
+            fetch(`${apiUrl}/sign-up`, {
                 method: 'POST',
                 headers: {
                   "Content-type": "application/json"
@@ -67,7 +69,7 @@ export class MenuScene extends Phaser.Scene{
                 }`
 
             function signInData(){
-                return fetch('http://localhost:4741/sign-in', {
+                return fetch(`${apiUrl}/sign-in`, {
                 method: 'POST',
                 headers: {
                   "Content-type": "application/json"

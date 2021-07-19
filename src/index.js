@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { apiUrl } from './config.js'
 import { CST, gameState } from './CST';
 import { LoadScene } from './scenes/LoadScene';
 import { MenuScene } from './scenes/MenuScene';
@@ -122,7 +123,7 @@ class MyGame extends Phaser.Scene
                     "password_confirmation": "${gameState.password_conf}"
                 }
             }`
-            fetch('http://localhost:4741/sign-up', {
+            fetch(`${apiUrl}/sign-up`, {
                 method: 'POST',
                 headers: {
                   "Content-type": "application/json"
@@ -148,7 +149,7 @@ class MyGame extends Phaser.Scene
                 }`
 
             function signInData(){
-                return fetch('http://localhost:4741/sign-in', {
+                return fetch(`${apiUrl}/sign-in`, {
                 method: 'POST',
                 headers: {
                   "Content-type": "application/json"
@@ -173,7 +174,7 @@ class MyGame extends Phaser.Scene
 
         signOut.on('pointerdown', () => {
             console.log('pressed signOut crab!')
-            fetch('http://localhost:4741/sign-out', {
+            fetch(`${apiUrl}/sign-out`, {
                 method: 'DELETE',
                 headers: {
                     "Authorization": `Bearer ${gameState.userData.user.token}`
@@ -192,7 +193,7 @@ class MyGame extends Phaser.Scene
                     "new": "${gameState.newPassword}"
                     }
                 }`
-            fetch('http://localhost:4741/change-password', {
+            fetch(`${apiUrl}/change-password`, {
                 method: 'PATCH',
                 headers: {
                   "Content-type": "application/json",
@@ -218,7 +219,7 @@ class MyGame extends Phaser.Scene
                 }
             }`
             function newCharacterData(){
-                return fetch('http://localhost:4741/characters', {
+                return fetch(`${apiUrl}/characters`, {
                 method: 'POST',
                 headers: {
                     "Content-type": "application/json",
@@ -242,7 +243,7 @@ class MyGame extends Phaser.Scene
         indexCharacters.on('pointerdown', () => {
             console.log('You pressed Index Characters crab!')
             function newCharacterData(){
-                return fetch('http://localhost:4741/characters', {
+                return fetch(`${apiUrl}/characters`, {
                 method: 'GET',
                 headers: {
                     "Content-type": "application/json",
@@ -266,7 +267,7 @@ class MyGame extends Phaser.Scene
             console.log('You pressed Show Character crab!')
             const showData = prompt('Enter character id!')
             function showCharacterData(){
-                return fetch(`http://localhost:4741/characters/${showData}`, {
+                return fetch(`${apiUrl}/characters/${showData}`, {
                 method: 'GET',
                 headers: {
                     "Content-type": "application/json",
@@ -296,7 +297,7 @@ class MyGame extends Phaser.Scene
         deleteCharacter.on('pointerdown', () => {
             console.log('You pressed Delete Character crab!')
             const deleteData = prompt('Enter character id!')
-            fetch(`http://localhost:4741/characters/${deleteData}`, {
+            fetch(`${apiUrl}/characters/${deleteData}`, {
                 method: 'DELETE',
                 headers: {
                     "Content-type": "application/json",
@@ -315,7 +316,7 @@ class MyGame extends Phaser.Scene
                     "inventory": "${gameState.showCharacterData.character.inventory}"
                     }
                 }`
-            fetch(`http://localhost:4741/characters/${gameState.showCharacterData.character._id}`, {
+            fetch(`${apiUrl}/characters/${gameState.showCharacterData.character._id}`, {
                 method: 'PATCH',
                 headers: {
                     "Content-type": "application/json",
@@ -335,7 +336,7 @@ class MyGame extends Phaser.Scene
                     "inventory": "${gameState.showCharacterData.character.inventory}"
                     }
                 }`
-            fetch(`http://localhost:4741/characters/${gameState.showCharacterData.character._id}`, {
+            fetch(`${apiUrl}/characters/${gameState.showCharacterData.character._id}`, {
                 method: 'PATCH',
                 headers: {
                     "Content-type": "application/json",

@@ -1,3 +1,4 @@
+import { apiUrl } from './../config.js'
 import { CST, gameState } from "../CST"
 
 var starfish
@@ -83,7 +84,7 @@ export class MainGame extends Phaser.Scene{
                     }
                 }`
             
-            fetch(`http://localhost:4741/characters/${char._id}`, {
+            fetch(`${apiUrl}/characters/${char._id}`, {
                 method: 'PATCH',
                 headers: {
                     "Content-type": "application/json",

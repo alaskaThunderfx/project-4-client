@@ -1,3 +1,4 @@
+import { apiUrl } from './../config.js'
 import { CST, gameState } from "../CST";
 
 export class LoggedInScene extends Phaser.Scene{
@@ -40,7 +41,7 @@ export class LoggedInScene extends Phaser.Scene{
 
         signOut.on('pointerdown', () => {
             console.log('pressed signOut crab!')
-            fetch('http://localhost:4741/sign-out', {
+            fetch(`${apiUrl}/sign-out`, {
                 method: 'DELETE',
                 headers: {
                     "Authorization": `Bearer ${gameState.userData.user.token}`
@@ -60,7 +61,7 @@ export class LoggedInScene extends Phaser.Scene{
                     "new": "${gameState.newPassword}"
                     }
                 }`
-            fetch('http://localhost:4741/change-password', {
+            fetch(`${apiUrl}/change-password`, {
                 method: 'PATCH',
                 headers: {
                   "Content-type": "application/json",
@@ -81,7 +82,7 @@ export class LoggedInScene extends Phaser.Scene{
                 }
             }`
             function newCharacterData(){
-                return fetch('http://localhost:4741/characters', {
+                return fetch(`${apiUrl}/characters`, {
                 method: 'POST',
                 headers: {
                     "Content-type": "application/json",
@@ -107,7 +108,7 @@ export class LoggedInScene extends Phaser.Scene{
             console.log('gameState.characterData')
             console.log(gameState.characterData)
             function newCharacterData(){
-                return fetch('http://localhost:4741/characters', {
+                return fetch(`${apiUrl}/characters`, {
                 method: 'GET',
                 headers: {
                     "Content-type": "application/json",
