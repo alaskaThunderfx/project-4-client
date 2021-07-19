@@ -14,12 +14,19 @@ export class MainGame extends Phaser.Scene{
     preload() {
 
     }
-    create() {
+    create(char) {
+        // background
         this.add.image(400, 400, 'bg')
+        // go back starfish
+        let goBack = this.add.image(675, 750, 'starfish').setDepth(1)
+        this.add.text(705, 750, 'Go Back', { color: 'black' }).setDepth(1)
+        goBack.setInteractive()
+        // inventory starfish
+        let inventory = this.add.image(50, 750, 'starfish').setDepth(1)
+        this.add.text(80, 750, 'Inventory', { color: 'black' }).setDepth(1)
+        inventory.setInteractive()
 
         gameState.isActive = false
-
-        
 
         gameState.cursors = this.input.keyboard.createCursorKeys()
         gameState.leftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
@@ -45,6 +52,15 @@ export class MainGame extends Phaser.Scene{
         gameState.player.play('stand')
         // crabWalk.play('walk')
         gameState.player.setInteractive()
+
+        inventory.on('pointerdown', () => {
+            console.log(char.inventory)
+            // this.scene.start(CST.SCENES.MAINGAME, char)
+        })
+
+        goBack.on ('pointerdown', () => {
+            this.scene.start(CST.SCENES.LOGGEDIN)
+        })
     }
     update() {
         

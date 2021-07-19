@@ -137,21 +137,29 @@ export class LoggedInScene extends Phaser.Scene{
                         if (char.owner === gameState.userData.user._id) {
                             console.log(char)
                             usersChars.push(char)
-                        })
+                        }})
 
-                        if (usersChars.length === 0) {
-                            console.log('no characters')
-                            this.add.text(400, 400, 'No characters to load!', { color: 'black' })
-                            return
-                        } else {
+                    if (usersChars[0] === undefined) {
+                        console.log('no characters')
+                        console.log('usersChars.length =\n', usersChars.length)
+                        this.add.text(400, 400, 'No characters to load!', { color: 'black' })
+                        return
+                    } else {
+                        usersChars.forEach(char => {
                             this.add.text(x, y, char.name, { color: 'black' })
+                            let crab = this.add.image(x + 150, y, 'crab')
+                            crab.setInteractive()
+                            crab.on('pointerdown', () => {
+                                this.scene.start(CST.SCENES.PICKEDCHARACTER, char)
+                                return gameState.currentCharacter = char
+                            })
                             y += 50
                             return
-                        }
                         })
+                    }
+                })
                     console.log(gameState.userData)
                     return gameState.characterData = data
             })
         }
     }
-}
