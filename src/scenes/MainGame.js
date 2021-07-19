@@ -1,6 +1,7 @@
 import { CST, gameState } from "../CST"
 
 var starfish
+var clams = []
 
 export class MainGame extends Phaser.Scene{
     constructor() {
@@ -8,9 +9,9 @@ export class MainGame extends Phaser.Scene{
             key: CST.SCENES.MAINGAME
         })
     }
-    // init() {
+    init() {
 
-    // }
+    }
     preload() {
 
     }
@@ -25,6 +26,14 @@ export class MainGame extends Phaser.Scene{
         let inventory = this.add.image(50, 750, 'starfish').setDepth(1)
         this.add.text(80, 750, 'Inventory', { color: 'black' }).setDepth(1)
         inventory.setInteractive()
+
+        // for (let i = 0; i < 5; i++) {
+        //     clams.push(this.add.sprite(Phaser.Math.Between(100, 700), Phaser.Math.Between(100, 700), 'clam'))
+        //     clams[i].setInteractive()
+        // }
+        let clam = this.add.image(400, 400, 'clam')
+        clam.setSize(40, 30)
+        this.physics.world.enable(clam);
 
         gameState.isActive = false
 
@@ -55,6 +64,27 @@ export class MainGame extends Phaser.Scene{
         gameState.player.setSize(72, 30)
         this.physics.world.enable(gameState.player);
         gameState.player.setInteractive()
+
+        this.physics.add.collider(clam, gameState.player, function(thing) {
+            thing.destroy()
+            char.inventory.push('clam')
+            console.log(char)
+            let charData = `{
+                "character": {
+                    "inventory": "${char.inventory}"
+                    }
+                }`
+            
+            fetch(`http://localhost:4741/characters/${char._id}`, {
+                method: 'PATCH',
+                headers: {
+                    "Content-type": "application/json",
+                    "Authorization": `Bearer ${gameState.userData.user.token}`
+                    },
+                body: charData
+                })
+                .then(res => (console.log(res))) 
+        })
 
         inventory.on('pointerdown', () => {
             console.log(char.inventory)

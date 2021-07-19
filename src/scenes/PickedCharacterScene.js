@@ -38,9 +38,17 @@ export class PickedCharacterScene extends Phaser.Scene {
         if (char.inventory[0] === undefined) {
             this.add.text(this.game.renderer.width / 2, player.y + 90, "You don't have anything!", { color: 'black'}).setOrigin(0.5)
         } else {
-            char.inventory.forEach(item => console.log(item))
+            char.inventory = char.inventory[0].split(',')
+            console.log(char.inventory)
+            let x = -300
+            char.inventory.forEach(item => {
+                if (item === 'clam') {
+                    this.add.image(this.game.renderer.width / 2 + x, this.game.renderer.height / 2, 'clam').setDepth(1)
+                    x += 100
+                }
+            })
         }
-
+        
         player.play('stand')
 
         startGame.on('pointerdown', () => {
