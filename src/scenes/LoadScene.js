@@ -29,6 +29,6 @@ export class LoadScene extends Phaser.Scene{
         })
     }
     create() {
-        this.scene.start(CST.SCENES.MENU, "hello from LoadScene")
+        this.scene.start(CST.SCENES.MENU)
     }
 }

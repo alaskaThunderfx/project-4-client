@@ -31,11 +31,7 @@ export class MainGame extends Phaser.Scene{
 
         for (let i = 0; i < 5; i++) {
             clams.push(this.add.image(Phaser.Math.Between(100, 700), Phaser.Math.Between(100, 700), 'clam'))
-            // clams[i].setInteractive()
         }
-        // let clam = this.add.image(400, 400, 'clam')
-        // clam.setSize(40, 30)
-        // this.physics.world.enable(clam);
 
         gameState.isActive = false
 
