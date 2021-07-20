@@ -42,14 +42,12 @@ export class LoggedInScene extends Phaser.Scene{
         loadCharacter.setInteractive()
 
         signOut.on('pointerdown', () => {
-            console.log('pressed signOut crab!')
             fetch(`${apiUrl}/sign-out`, {
                 method: 'DELETE',
                 headers: {
                     "Authorization": `Bearer ${gameState.userData.user.token}`
                 }
               })
-                .then(res => console.log(res))
             gameState.userData = null
             this.scene.start(CST.SCENES.MENU)
         })
@@ -71,7 +69,6 @@ export class LoggedInScene extends Phaser.Scene{
                 },
                 body: userData
               })
-                .then(res => console.log(res)) 
         })
 
         createCharacter.on('pointerdown', () => {
@@ -105,7 +102,6 @@ export class LoggedInScene extends Phaser.Scene{
         })
 
         loadCharacter.on('pointerdown', () => {
-            console.log(gameState.characterData)
             function newCharacterData(){
                 return fetch(`${apiUrl}/characters`, {
                 method: 'GET',
@@ -128,10 +124,8 @@ export class LoggedInScene extends Phaser.Scene{
                     let y = 300
                     
                     const usersChars = []
-                    console.log(data)
                     data.characters.forEach(char => {
                         if (char.owner === gameState.userData.user._id) {
-                            console.log(char)
                             usersChars.push(char)
                         }})
 
@@ -153,8 +147,6 @@ export class LoggedInScene extends Phaser.Scene{
                         })
                     }
                 })
-                    // console.log(gameState.userData)
-                    // return gameState.characterData = data
             })
         }
     }

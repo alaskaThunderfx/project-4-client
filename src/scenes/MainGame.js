@@ -72,8 +72,6 @@ export class MainGame extends Phaser.Scene{
         gameState.player.list[0].on('animationcomplete', () => {
             gameState.player.list[0].play('stand')
         })
-        // crabWalk.play('walk')
-        // var hitArea = new Phaser.Geom.Rectangle(0, 0, 72, 36)
         gameState.player.setSize(72, 30)
         this.physics.world.enable(gameState.player);
         gameState.player.setInteractive()
@@ -86,7 +84,6 @@ export class MainGame extends Phaser.Scene{
         this.physics.add.collider(clams, gameState.player, function(thing) {
             thing.destroy()
             char.inventory.push('clam')
-            console.log(char)
             let charData = `{
                 "character": {
                     "inventory": "${char.inventory}"
@@ -101,7 +98,6 @@ export class MainGame extends Phaser.Scene{
                     },
                 body: charData
                 })
-                .then(res => (console.log(res))) 
         })
 
         inventory.on('pointerdown', () => {

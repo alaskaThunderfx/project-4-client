@@ -15,5 +15,4 @@ export const SignIn = async () => {
         },
         body: userData
       })
-    console.log('jsonData =\n', jsonData)
 }

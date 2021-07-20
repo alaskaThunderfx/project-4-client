@@ -46,7 +46,6 @@ export class InventoryScene extends Phaser.Scene {
                         },
                     body: charData
                     })
-                    .then(res => (console.log(res)))
                 gameState.toggle = false
                 this.scene.stop(CST.SCENES.INVENTORY)
             })

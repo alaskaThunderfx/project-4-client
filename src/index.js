@@ -89,8 +89,6 @@ class MyGame extends Phaser.Scene
         charDataCrab.setInteractive()
 
         userDataCrab.on('pointerdown', () => {
-            console.log('You pressed User Data crab! Here\'s your data!')
-            console.log(gameState.userData)
         })
 
         charDataCrab.on('pointerdown', () => {
@@ -102,17 +100,10 @@ class MyGame extends Phaser.Scene
                 starfish = null
                 gameState.isActive = false
             }
-            console.log('You pressed Character Data crab! Here\'s your data!')
-            console.log(gameState.characterData)
-            console.log('Here\'s also the Show Chatacter Data!')
-            console.log(gameState.showCharacterData)
-            console.log('Here\'s your chacaters inventory')
-            console.log(gameState.showCharacterData.character.inventory)
             
         })
 
         signUp.on('pointerdown', () => {
-            console.log('pressed signUp crab!')
             gameState.user_name = prompt('Enter a user name please!')
             gameState.password = prompt('Enter a password please!')
             gameState.password_conf = prompt('Confirm your password please!')
@@ -130,15 +121,12 @@ class MyGame extends Phaser.Scene
                 },
                 body: userData
               })
-                .then(req => console.log(req))
             gameState.user_name = null
             gameState.password = null
             gameState.password_conf = null
-            console.log('after post request, :\n', gameState.user_name, gameState.password, gameState.password_conf)
         })
 
         signIn.on('pointerdown', () => {
-            console.log('pressed signIn crab!')
             gameState.user_name = prompt('Enter your user name!')
             gameState.password = prompt('Enter your password!')
             let userData = `{
@@ -173,14 +161,12 @@ class MyGame extends Phaser.Scene
         })
 
         signOut.on('pointerdown', () => {
-            console.log('pressed signOut crab!')
             fetch(`${apiUrl}/sign-out`, {
                 method: 'DELETE',
                 headers: {
                     "Authorization": `Bearer ${gameState.userData.user.token}`
                 }
               })
-                .then(res => console.log(res))
             gameState.userData = null
         })
 
@@ -210,8 +196,6 @@ class MyGame extends Phaser.Scene
         })
 
         createCharacter.on('pointerdown', () => {
-            console.log('You pressed Create Character crab!')
-            console.log(gameState.characterData)
             let charData = `{
                 "character": {
                     "name": "${prompt('Name your new character!')}",
@@ -241,7 +225,6 @@ class MyGame extends Phaser.Scene
         })
 
         indexCharacters.on('pointerdown', () => {
-            console.log('You pressed Index Characters crab!')
             function newCharacterData(){
                 return fetch(`${apiUrl}/characters`, {
                 method: 'GET',
@@ -264,8 +247,6 @@ class MyGame extends Phaser.Scene
         })
 
         showCharacter.on('pointerdown', () => {
-            console.log('You pressed Show Character crab!')
-            const showData = prompt('Enter character id!')
             function showCharacterData(){
                 return fetch(`${apiUrl}/characters/${showData}`, {
                 method: 'GET',
@@ -285,17 +266,14 @@ class MyGame extends Phaser.Scene
                 .then(data => {
                     gameState.showCharacterData = data
                     if (data.character.inventory[0] === undefined) {
-                        console.log('inv is 0')
                         return gameState.showCharacterData.character.inventory = data.character.inventory
                     } else {
-                        console.log('inv is not 0')
                         return gameState.showCharacterData.character.inventory = data.character.inventory[0].split(',')
                     }
             })
         })
 
         deleteCharacter.on('pointerdown', () => {
-            console.log('You pressed Delete Character crab!')
             const deleteData = prompt('Enter character id!')
             fetch(`${apiUrl}/characters/${deleteData}`, {
                 method: 'DELETE',
@@ -304,12 +282,9 @@ class MyGame extends Phaser.Scene
                     "Authorization": `Bearer ${gameState.userData.user.token}`
                 }
               })
-                .then(res => console.log(res))
             })
 
         pickUpStuff.on('pointerdown', () => {
-            console.log('You pressed Pick Up Stuff crab!')
-            console.log('current characters inventory: \n', gameState.showCharacterData.character.inventory)
             gameState.showCharacterData.character.inventory.push('stuff')
             let charData = `{
                 "character": {
@@ -323,13 +298,10 @@ class MyGame extends Phaser.Scene
                     "Authorization": `Bearer ${gameState.userData.user.token}`
                     },
                 body: charData
-                })
-                .then(res => (console.log(res))) 
-                })
+            })
+        })
 
         dropStuff.on('pointerdown', () => {
-            console.log('You pressed Drop Stuff crab!')
-            console.log('current characters inventory: \n', gameState.showCharacterData.character.inventory)
             gameState.showCharacterData.character.inventory.splice(gameState.showCharacterData.character.inventory.indexOf('stuff'), 1)
             let charData = `{
                 "character": {
@@ -343,9 +315,8 @@ class MyGame extends Phaser.Scene
                     "Authorization": `Bearer ${gameState.userData.user.token}`
                     },
                 body: charData
-                })
-                .then(res => (console.log(res))) 
-                })
+            })
+        })
 
 
         gameState.player.play('stand')

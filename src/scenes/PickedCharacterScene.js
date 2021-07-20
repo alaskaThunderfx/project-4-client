@@ -44,7 +44,6 @@ export class PickedCharacterScene extends Phaser.Scene {
             this.add.text(this.game.renderer.width / 2, player.y + 120, "You don't have anything!", { color: 'black'}).setOrigin(0.5)
         } else {
             char.inventory = char.inventory[0].split(',')
-            console.log(char.inventory)
             let x = -300
             char.inventory.forEach(item => {
                 if (item === 'clam') {
@@ -69,7 +68,6 @@ export class PickedCharacterScene extends Phaser.Scene {
                 }
               })
                 .then(res => {
-                    console.log(res)
                     this.scene.start(CST.SCENES.LOGGEDIN)
                 })
         })

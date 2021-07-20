@@ -31,7 +31,6 @@ export class MenuScene extends Phaser.Scene{
         returningUser.setInteractive()
 
         newAccount.on('pointerdown', () => {
-            console.log('pressed signUp crab!')
             gameState.user_name = prompt('Enter a user name please!')
             gameState.password = prompt('Enter a password please!')
             gameState.password_conf = prompt('Confirm your password please!')
@@ -50,18 +49,15 @@ export class MenuScene extends Phaser.Scene{
                 body: userData
               })
                 .then(res => {
-                    console.log(res)
                     messages = this.add.text(this.game.renderer.width / 2, this.game.renderer.height / 2 - 75, 'New User made! You can click on Returning User now to log in!', { color: 'black' }).setOrigin(0.5)
                     gameState.user_name = null
                     gameState.password = null
                     gameState.password_conf = null
-                    console.log('after post request, :\n', gameState.user_name, gameState.password, gameState.password_conf)
                 })
             
         })
         
         returningUser.on('pointerdown', () => {
-            console.log('pressed signIn crab!')
             gameState.user_name = prompt('Enter your user name!')
             gameState.password = prompt('Enter your password!')
             let userData = `{
@@ -91,13 +87,9 @@ export class MenuScene extends Phaser.Scene{
                     if (data.user === undefined) {
                         this.add.text(this.add.text(300, 300, 'There was an error! Try again', { color: 'black' }))
                     } else {
-                        console.log('data =\n', data)
                         gameState.userData = data
-                        console.log('gameState.userData:\n', gameState.userData)
                         gameState.user_name = null
                         gameState.password = null
-                        console.log(gameState.userData)
-                        // gameState.player = this.physics.add.sprite(400, 300, 'crab')
                         this.scene.start(CST.SCENES.LOGGEDIN)
                         
                     }
