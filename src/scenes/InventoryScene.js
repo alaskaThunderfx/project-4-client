@@ -1,3 +1,4 @@
+import { apiUrl } from './../config.js'
 import { CST, gameState } from "../CST"
 
 export class InventoryScene extends Phaser.Scene {
@@ -6,7 +7,8 @@ export class InventoryScene extends Phaser.Scene {
             key: CST.SCENES.INVENTORY
         })
     }
-    create(items) {
+    create(char) {
+        const items = char.inventory
         let playerInv = []
         let x = 95
         let inventoryBox = this.add.rectangle(400, 120, this.game.renderer.width - 100, 200, 0x000000)
@@ -17,10 +19,39 @@ export class InventoryScene extends Phaser.Scene {
         playerInv.forEach(item => {
             item.setInteractive()
             item.on('pointerdown', () => {
-                console.log('hi')
-                console.log(playerInv.indexOf(item))
-                gameState.player.list[0].play('walk')
+                items.splice(playerInv.indexOf(item), 1)
+                gameState.currentCharacter.inventory = items
+                gameState.player.list[0].play('throw')
+                let charData
+                if (items.length > 0) { 
+                    charData = `{
+                    "character": {
+                        "inventory": "${items}"
+                        }
+                    }`
+                } else {
+                    charData = `{
+                        "character": {
+                            "inventory": []
+                            }
+                        }`
+                }
+                
+                fetch(`${apiUrl}/characters/${char._id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        "Content-type": "application/json",
+                        "Authorization": `Bearer ${gameState.userData.user.token}`
+                        },
+                    body: charData
+                    })
+                    .then(res => (console.log(res)))
+                gameState.toggle = false
+                this.scene.stop(CST.SCENES.INVENTORY)
             })
         })
+    }
+    update() {
+
     }
 }

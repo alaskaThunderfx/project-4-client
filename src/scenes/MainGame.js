@@ -18,7 +18,7 @@ export class MainGame extends Phaser.Scene{
 
     }
     create(char) {
-        let toggle = false
+        gameState.toggle = false
         var clams = []
         // background
         this.add.image(400, 400, 'bg')
@@ -46,6 +46,7 @@ export class MainGame extends Phaser.Scene{
         gameState.rightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
         gameState.upKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
         gameState.downKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
+        gameState.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
 
         this.anims.create({
             key: 'stand',
@@ -61,8 +62,18 @@ export class MainGame extends Phaser.Scene{
             repeat: -1
         })
 
+        this.anims.create({
+            key: 'throw',
+            frames: this.anims.generateFrameNumbers('crab-throw'),
+            frameRate: 5,
+            repeat: 0
+        })
+
         gameState.player = this.add.container(400, 300, [this.physics.add.sprite(0, 0, 'crab'), this.add.text(-30, -40, char.name, { color: 'black' })])
         gameState.player.list[0].play('stand')
+        gameState.player.list[0].on('animationcomplete', () => {
+            gameState.player.list[0].play('stand')
+        })
         // crabWalk.play('walk')
         // var hitArea = new Phaser.Geom.Rectangle(0, 0, 72, 36)
         gameState.player.setSize(72, 30)
@@ -96,12 +107,13 @@ export class MainGame extends Phaser.Scene{
         })
 
         inventory.on('pointerdown', () => {
-            if (toggle === false) {
-                this.scene.launch(CST.SCENES.INVENTORY, char.inventory)
-                toggle = true
+            if (gameState.toggle === false) {
+                console.log(gameState.showCharacterData)
+                this.scene.launch(CST.SCENES.INVENTORY, char)
+                gameState.toggle = true
             } else {
                 this.scene.stop(CST.SCENES.INVENTORY)
-                toggle = false
+                gameState.toggle = false
             }
         })
 
@@ -133,6 +145,10 @@ export class MainGame extends Phaser.Scene{
             gameState.player.list[0].play('stand')
         } else if (Phaser.Input.Keyboard.JustUp(gameState.rightKey)) {
             gameState.player.list[0].play('stand')
+        }
+
+        if (Phaser.Input.Keyboard.JustDown(gameState.spaceKey)) {
+            gameState.player.list[0].play('throw')
         }
 
         if (gameState.cursors.left.isDown) {

@@ -16,7 +16,8 @@ export class LoadScene extends Phaser.Scene{
         this.load.image('conch', 'https://i.imgur.com/sLrduqP.png')
         this.load.image('clam', 'https://i.imgur.com/HTMFp8d.png')
         this.load.spritesheet('crab', 'https://i.imgur.com/FjjhOKR.png', { frameWidth: 71, frameHeight: 36 })
-        this.load.spritesheet('crab2', 'https://i.imgur.com/glMZSfU.png', { frameWidth: 83.5, frameHeight: 36})
+        this.load.spritesheet('crab2', 'https://i.imgur.com/glMZSfU.png', { frameWidth: 83.5, frameHeight: 36 })
+        this.load.spritesheet('crab-throw', 'https://i.imgur.com/winRwny.png', { frameWidth: 120, frameHeight: 60 })
 
         let loadingBar = this.add.graphics({
             fillStyle: {
