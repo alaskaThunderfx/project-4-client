@@ -407,8 +407,8 @@ const config = {
     physics: {
         default: 'arcade',
         arcade: {
-            enableBody: true,
-            debug: true 
+            enableBody: true
+            // debug: true 
         }
         
     },

@@ -14,6 +14,7 @@ export class LoggedInScene extends Phaser.Scene{
 
     }
     create() {
+        let message = ''
         // logo
         this.add.image(this.game.renderer.width / 2, this.game.renderer.height * 0.20, 'logo').setDepth(1)
         // background
@@ -73,8 +74,7 @@ export class LoggedInScene extends Phaser.Scene{
         })
 
         createCharacter.on('pointerdown', () => {
-            console.log('You pressed Create Character crab!')
-            console.log(gameState.characterData)
+            message = ''
             let charData = `{
                 "character": {
                     "name": "${prompt('Name your new character!')}",
@@ -97,8 +97,9 @@ export class LoggedInScene extends Phaser.Scene{
                     }) 
                 })
             }
-            const charStuff = newCharacterData()
+            newCharacterData()
                 .then(data => {
+                    message = this.add.text(this.game.renderer.width / 2 + 30, this.game.renderer.height / 2, 'New character made!', { color: 'black' }).setOrigin(0.5)
                 return gameState.characterData = data
             })
         })
@@ -123,10 +124,11 @@ export class LoggedInScene extends Phaser.Scene{
                 })
             }
             
-            const charStuff = newCharacterData()
+            newCharacterData()
                 .then(data => {
                     let x = 50
                     let y = 300
+                    message = ''
                     const usersChars = []
                     console.log(data)
                     data.characters.forEach(char => {
@@ -136,9 +138,7 @@ export class LoggedInScene extends Phaser.Scene{
                         }})
 
                     if (usersChars[0] === undefined) {
-                        console.log('no characters')
-                        console.log('usersChars.length =\n', usersChars.length)
-                        this.add.text(400, 400, 'No characters to load!', { color: 'black' })
+                        message = this.add.text(this.game.renderer.width / 2 + 30, this.game.renderer.height / 2, 'No characters to load!', { color: 'black' }).setOrigin(0.5)
                         return
                     } else {
                         usersChars.forEach(char => {

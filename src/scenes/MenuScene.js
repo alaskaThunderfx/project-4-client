@@ -1,16 +1,14 @@
 import { apiUrl } from './../config.js'
 import { CST, gameState } from "../CST"
 
-console.log()
+let messages = ''
 export class MenuScene extends Phaser.Scene{
     constructor() {
         super({
             key: CST.SCENES.MENU
         })
     }
-    init(data) {
-        console.log(data)
-        console.log('I GOT IT')
+    init() {
     }
     preload() {
 
@@ -50,11 +48,15 @@ export class MenuScene extends Phaser.Scene{
                 },
                 body: userData
               })
-                .then(req => console.log(req))
-            gameState.user_name = null
-            gameState.password = null
-            gameState.password_conf = null
-            console.log('after post request, :\n', gameState.user_name, gameState.password, gameState.password_conf)
+                .then(res => {
+                    console.log(res)
+                    messages = this.add.text(this.game.renderer.width / 2, this.game.renderer.height / 2 - 75, 'New User made! You can click on Returning User now to log in!', { color: 'black' }).setOrigin(0.5)
+                    gameState.user_name = null
+                    gameState.password = null
+                    gameState.password_conf = null
+                    console.log('after post request, :\n', gameState.user_name, gameState.password, gameState.password_conf)
+                })
+            
         })
         
         returningUser.on('pointerdown', () => {
