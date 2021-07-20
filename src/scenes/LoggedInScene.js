@@ -1,6 +1,7 @@
 import { apiUrl } from './../config.js'
 import { CST, gameState } from "../CST";
 
+let message = ''
 export class LoggedInScene extends Phaser.Scene{
     constructor() {
         super({
@@ -14,7 +15,7 @@ export class LoggedInScene extends Phaser.Scene{
 
     }
     create() {
-        let message = ''
+        
         // logo
         this.add.image(this.game.renderer.width / 2, this.game.renderer.height * 0.20, 'logo').setDepth(1)
         // background
@@ -74,7 +75,6 @@ export class LoggedInScene extends Phaser.Scene{
         })
 
         createCharacter.on('pointerdown', () => {
-            message = ''
             let charData = `{
                 "character": {
                     "name": "${prompt('Name your new character!')}",
@@ -99,14 +99,12 @@ export class LoggedInScene extends Phaser.Scene{
             }
             newCharacterData()
                 .then(data => {
-                    message = this.add.text(this.game.renderer.width / 2 + 30, this.game.renderer.height / 2, 'New character made!', { color: 'black' }).setOrigin(0.5)
+                    message = this.add.text(this.game.renderer.width / 2 + 30, this.game.renderer.height / 2, 'New character made!', { color: 'black' }).setOrigin(0.5).setDepth(1)
                 return gameState.characterData = data
             })
         })
 
         loadCharacter.on('pointerdown', () => {
-            console.log('You pressed Index Characters crab!')
-            console.log('gameState.characterData')
             console.log(gameState.characterData)
             function newCharacterData(){
                 return fetch(`${apiUrl}/characters`, {
@@ -128,7 +126,7 @@ export class LoggedInScene extends Phaser.Scene{
                 .then(data => {
                     let x = 50
                     let y = 300
-                    message = ''
+                    
                     const usersChars = []
                     console.log(data)
                     data.characters.forEach(char => {

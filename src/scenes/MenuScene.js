@@ -1,7 +1,7 @@
 import { apiUrl } from './../config.js'
 import { CST, gameState } from "../CST"
 
-let messages = ''
+
 export class MenuScene extends Phaser.Scene{
     constructor() {
         super({
@@ -14,6 +14,7 @@ export class MenuScene extends Phaser.Scene{
 
     }
     create() {
+        let messages = ''
         // logo
         this.add.image(this.game.renderer.width / 2, this.game.renderer.height * 0.20, 'logo').setDepth(1)
         // background
