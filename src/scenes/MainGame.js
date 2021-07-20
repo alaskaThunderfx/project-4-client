@@ -3,8 +3,6 @@ import { CST, gameState } from "../CST"
 
 var starfish
 
-
-
 export class MainGame extends Phaser.Scene{
     constructor() {
         super({
@@ -46,7 +44,7 @@ export class MainGame extends Phaser.Scene{
         gameState.rightKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
         gameState.upKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP)
         gameState.downKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN)
-        gameState.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+        gameState.iKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I)
 
         this.anims.create({
             key: 'stand',
@@ -108,7 +106,6 @@ export class MainGame extends Phaser.Scene{
 
         inventory.on('pointerdown', () => {
             if (gameState.toggle === false) {
-                console.log(gameState.showCharacterData)
                 this.scene.launch(CST.SCENES.INVENTORY, char)
                 gameState.toggle = true
             } else {
@@ -124,6 +121,19 @@ export class MainGame extends Phaser.Scene{
         })
     }
     update() {
+        if (gameState.throwShell === true) {
+            gameState.throwShell = false
+            setTimeout(() => {
+                gameState.shell = this.physics.add.image(gameState.player.x, gameState.player.y + 30, 'clam')
+                gameState.shell.flipY = true
+                gameState.shell.setInteractive()
+                gameState.shell.setVelocityY(500)
+                
+            }, 400)
+            setTimeout(() => {
+                gameState.shell.destroy()
+            }, 3000)
+        }
         
         if (Phaser.Input.Keyboard.JustDown(gameState.upKey)) {
             gameState.player.list[0].play('walk')
@@ -147,8 +157,14 @@ export class MainGame extends Phaser.Scene{
             gameState.player.list[0].play('stand')
         }
 
-        if (Phaser.Input.Keyboard.JustDown(gameState.spaceKey)) {
-            gameState.player.list[0].play('throw')
+        if (Phaser.Input.Keyboard.JustDown(gameState.iKey)) {
+            if (gameState.toggle === false) {
+                this.scene.launch(CST.SCENES.INVENTORY, gameState.currentCharacter)
+                gameState.toggle = true
+            } else {
+                this.scene.stop(CST.SCENES.INVENTORY)
+                gameState.toggle = false
+            }
         }
 
         if (gameState.cursors.left.isDown) {

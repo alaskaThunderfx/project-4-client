@@ -22,6 +22,7 @@ export class InventoryScene extends Phaser.Scene {
                 items.splice(playerInv.indexOf(item), 1)
                 gameState.currentCharacter.inventory = items
                 gameState.player.list[0].play('throw')
+                gameState.throwShell = true
                 let charData
                 if (items.length > 0) { 
                     charData = `{
@@ -52,6 +53,6 @@ export class InventoryScene extends Phaser.Scene {
         })
     }
     update() {
-
+        
     }
 }
