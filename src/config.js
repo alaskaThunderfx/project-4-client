@@ -9,7 +9,3 @@ if (window.location.hostname === 'localhost') {
 } else {
   apiUrl = apiUrls.production
 }
-
-// export default {
-//   apiUrl
-// }
