@@ -1,7 +1,7 @@
 import { apiUrl } from './../config.js'
 import { CST, gameState } from "../CST";
 
-let message = ''
+
 export class LoggedInScene extends Phaser.Scene{
     constructor() {
         super({
@@ -15,7 +15,7 @@ export class LoggedInScene extends Phaser.Scene{
 
     }
     create() {
-        
+        let message = this.add.text(this.game.renderer.width / 2 + 30, this.game.renderer.height / 2, '', { color: 'black' }).setOrigin(0.5).setDepth(1)
         // logo
         this.add.image(this.game.renderer.width / 2, this.game.renderer.height * 0.20, 'logo').setDepth(1)
         // background
@@ -99,7 +99,7 @@ export class LoggedInScene extends Phaser.Scene{
             }
             newCharacterData()
                 .then(data => {
-                    message = this.add.text(this.game.renderer.width / 2 + 30, this.game.renderer.height / 2, 'New character made!', { color: 'black' }).setOrigin(0.5).setDepth(1)
+                    message.setText('New character made! Load \'em up!')
                 return gameState.characterData = data
             })
         })
@@ -136,9 +136,10 @@ export class LoggedInScene extends Phaser.Scene{
                         }})
 
                     if (usersChars[0] === undefined) {
-                        message = this.add.text(this.game.renderer.width / 2 + 30, this.game.renderer.height / 2, 'No characters to load!', { color: 'black' }).setOrigin(0.5)
+                        message.setText('No characters to load!')
                         return
                     } else {
+                        message.setText('')
                         usersChars.forEach(char => {
                             this.add.text(x, y, char.name, { color: 'black' })
                             let crab = this.add.image(x + 150, y, 'crab')
