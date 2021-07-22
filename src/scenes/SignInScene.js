@@ -49,7 +49,7 @@ export class SignInScene extends Phaser.Scene {
                         })
                             .then(res => {
                                 if (!res.ok) {
-                                    gameState.message.setText('There was an issue signing in! please try again').setPosition(400, 700)
+                                    gameState.message.setText('There was an issue signing in! Please try again').setPosition(400, 700)
                                     throw Error(res.statusText)
                                 } else {
                                     gameState.proceed = true
@@ -87,7 +87,7 @@ export class SignInScene extends Phaser.Scene {
         this.tweens.add({
             targets: element,
             y: 400,
-            duration: 3000,
+            duration: 1000,
             ease: 'Power3'
         })
     }

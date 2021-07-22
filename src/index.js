@@ -8,6 +8,7 @@ import { PickedCharacterScene } from './scenes/PickedCharacterScene';
 import { InventoryScene } from './scenes/InventoryScene';
 import { SignUpScene } from './scenes/SignUpScene';
 import { SignInScene } from './scenes/SignInScene';
+import { ChangePasswordScene } from './scenes/ChangePasswordScene';
 
 var starfish
 
@@ -54,6 +55,7 @@ const config = {
         SignUpScene,
         SignInScene,
         LoggedInScene,
+        ChangePasswordScene,
         PickedCharacterScene,
         MainGame,
         InventoryScene,

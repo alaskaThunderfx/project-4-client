@@ -15,7 +15,8 @@ export class LoggedInScene extends Phaser.Scene{
 
     }
     create() {
-        let message = this.add.text(this.game.renderer.width / 2 + 30, this.game.renderer.height / 2, '', { color: 'black' }).setOrigin(0.5).setDepth(1)
+        gameState.toggleInteractive = true
+        gameState.message = this.add.text(this.game.renderer.width / 2 + 30, this.game.renderer.height / 2, '', { color: 'black' }).setOrigin(0.5).setDepth(1)
         // logo
         this.add.image(this.game.renderer.width / 2, this.game.renderer.height * 0.20, 'logo').setDepth(1)
         // background
@@ -53,22 +54,10 @@ export class LoggedInScene extends Phaser.Scene{
         })
 
         changePassword.on('pointerdown', () => {
-            gameState.oldPassword = prompt('Enter your old password!')
-            gameState.newPassword = prompt('Enter your new password!')
-            let userData = `{
-                "passwords": {
-                    "old": "${gameState.oldPassword}",
-                    "new": "${gameState.newPassword}"
-                    }
-                }`
-            fetch(`${apiUrl}/change-password`, {
-                method: 'PATCH',
-                headers: {
-                  "Content-type": "application/json",
-                  "Authorization": `Bearer ${gameState.userData.user.token}`
-                },
-                body: userData
-              })
+            if (gameState.toggleInteractive === true) {
+                gameState.toggleInteractive = false
+                this.scene.launch(CST.SCENES.CHANGEPASSWORD)
+            }
         })
 
         createCharacter.on('pointerdown', () => {
@@ -96,7 +85,7 @@ export class LoggedInScene extends Phaser.Scene{
             }
             newCharacterData()
                 .then(data => {
-                    message.setText('New character made! Load \'em up!')
+                    gameState.message.setText('New character made! Load \'em up!')
                 return gameState.characterData = data
             })
         })
@@ -130,10 +119,10 @@ export class LoggedInScene extends Phaser.Scene{
                         }})
 
                     if (usersChars[0] === undefined) {
-                        message.setText('No characters to load!')
+                        gameState.message.setText('No characters to load!')
                         return
                     } else {
-                        message.setText('')
+                        gameState.message.setText('')
                         usersChars.forEach(char => {
                             this.add.text(x, y, char.name, { color: 'black' })
                             let crab = this.add.image(x + 150, y, 'crab')

@@ -8,7 +8,8 @@ export const CST = {
         INVENTORY: "INVENTORY",
         LOGGEDIN: "LOGGEDIN",
         SIGNUP: "SIGNUP",
-        SIGNIN: "SIGNIN"
+        SIGNIN: "SIGNIN",
+        CHANGEPASSWORD: "CHANGEPASSWORD"
     }
 }
 

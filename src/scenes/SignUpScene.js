@@ -74,7 +74,7 @@ export class SignUpScene extends Phaser.Scene {
         this.tweens.add({
             targets: element,
             y: 400,
-            duration: 3000,
+            duration: 1000,
             ease: 'Power3'
         })
     }
