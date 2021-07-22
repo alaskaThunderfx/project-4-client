@@ -19,6 +19,12 @@ export class SignUpScene extends Phaser.Scene{
         element.setPerspective(800)
         element.addListener('click')
         element.on('click', function () {
+            if (event.target.name === 'gobackButton') {
+                this.scene.tweens.add({ targets: element.rotate3d, x: 1, w: 90, duration: 3000, ease: 'Power3' })
+                this.scene.tweens.add({ targets: element, scaleX: 2, scaleY: 2, y: 900, duration: 3000, ease: 'Power3',
+                onComplete: function () { element.setVisible(false) }
+                })
+            }
             if (event.target.name === 'signupButton') {
                 const inputUsername = this.getChildByName('username')
                 const inputPassword = this.getChildByName('password')
@@ -47,7 +53,7 @@ export class SignUpScene extends Phaser.Scene{
                             body: userData
                           })
                             .then(res => {
-                                gameState.message.setText(`Thank you for signing up ${gameState.signedUp}! Please click 'Returning User' to sign in!`)
+                                gameState.message.setText(`Thank you for signing up, ${gameState.signedUp}! Please click 'Returning User' to sign in!`)
                             })
                         
                     } else {
