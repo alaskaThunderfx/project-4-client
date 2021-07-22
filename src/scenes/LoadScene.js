@@ -11,6 +11,7 @@ export class LoadScene extends Phaser.Scene{
     }
     preload() {
         this.load.html('sign-up', 'http://127.0.0.1:5500/src/assets/signupform.html')
+        this.load.html('sign-in', 'http://127.0.0.1:5500/src/assets/signinform.html')
         this.load.image('bg', 'https://i.imgur.com/SAKDIFy.png')
         this.load.image('logo', 'https://i.imgur.com/XB8YvO0.png')
         this.load.image('starfish', 'https://i.imgur.com/Hpnxa6Y.png')
