@@ -61,33 +61,10 @@ export class LoggedInScene extends Phaser.Scene{
         })
 
         createCharacter.on('pointerdown', () => {
-            let charData = `{
-                "character": {
-                    "name": "${prompt('Name your new character!')}",
-                    "inventory": []
-                }
-            }`
-            function newCharacterData(){
-                return fetch(`${apiUrl}/characters`, {
-                method: 'POST',
-                headers: {
-                    "Content-type": "application/json",
-                    "Authorization": `Bearer ${gameState.userData.user.token}`
-                },
-                body: charData
-              })
-                .then(res => { 
-                    return res.json().then(data => {
-                        gameState.character = data
-                        return data
-                    }) 
-                })
+            if (gameState.toggleInteractive === true) {
+                gameState.toggleInteractive = false
+                this.scene.launch(CST.SCENES.CREATECHARACTER)
             }
-            newCharacterData()
-                .then(data => {
-                    gameState.message.setText('New character made! Load \'em up!')
-                return gameState.characterData = data
-            })
         })
 
         loadCharacter.on('pointerdown', () => {
