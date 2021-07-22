@@ -6,6 +6,7 @@ import { MainGame } from './scenes/MainGame';
 import { LoggedInScene } from './scenes/LoggedInScene';
 import { PickedCharacterScene } from './scenes/PickedCharacterScene';
 import { InventoryScene } from './scenes/InventoryScene';
+import { SignUpScene } from './scenes/SignUpScene';
 
 var starfish
 
@@ -43,9 +44,13 @@ const config = {
         }
         
     },
+    dom : {
+        createContainer: true
+    },
     scene: [
         LoadScene,
         MenuScene,
+        SignUpScene,
         LoggedInScene,
         PickedCharacterScene,
         MainGame,

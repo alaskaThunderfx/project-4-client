@@ -1,6 +1,6 @@
 import { apiUrl } from './../config.js'
 import { CST, gameState } from "../CST"
-
+import { SignUpScene } from './SignUpScene.js'
 
 export class MenuScene extends Phaser.Scene{
     constructor() {
@@ -11,10 +11,10 @@ export class MenuScene extends Phaser.Scene{
     init() {
     }
     preload() {
-
     }
     create() {
-        let messages = ''
+        
+        let messages = gameState.message = this.add.text(this.game.renderer.width / 2, this.game.renderer.height / 2 - 75, "", { color: "#000000"}).setDepth(5). setOrigin(0.5)
         // logo
         this.add.image(this.game.renderer.width / 2, this.game.renderer.height * 0.20, 'logo').setDepth(1)
         // background
@@ -31,30 +31,7 @@ export class MenuScene extends Phaser.Scene{
         returningUser.setInteractive()
 
         newAccount.on('pointerdown', () => {
-            gameState.user_name = prompt('Enter a user name please!')
-            gameState.password = prompt('Enter a password please!')
-            gameState.password_conf = prompt('Confirm your password please!')
-            let userData = `{
-                "credentials": {
-                    "user_name": "${gameState.user_name}",
-                    "password": "${gameState.password}",
-                    "password_confirmation": "${gameState.password_conf}"
-                }
-            }`
-            fetch(`${apiUrl}/sign-up`, {
-                method: 'POST',
-                headers: {
-                  "Content-type": "application/json"
-                },
-                body: userData
-              })
-                .then(res => {
-                    messages = this.add.text(this.game.renderer.width / 2, this.game.renderer.height / 2 - 75, 'New User made! You can click on Returning User now to log in!', { color: 'black' }).setOrigin(0.5)
-                    gameState.user_name = null
-                    gameState.password = null
-                    gameState.password_conf = null
-                })
-            
+            this.scene.launch(CST.SCENES.SIGNUP)
         })
         
         returningUser.on('pointerdown', () => {
