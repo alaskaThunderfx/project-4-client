@@ -49,12 +49,10 @@ export class SignInScene extends Phaser.Scene {
                         })
                             .then(res => {
                                 if (!res.ok) {
-                                    console.log('it didn\'t work!')
                                     gameState.message.setText('There was an issue signing in! please try again').setPosition(400, 700)
                                     throw Error(res.statusText)
                                 } else {
                                     gameState.proceed = true
-                                    console.log('it worked!')
                                     gameState.toggleInteractive = false
                                     gameState.launchScene()
                                     element.scene.tweens.add({ targets: element.rotate3d, x: 1, w: 90, duration: 3000, ease: 'Power3' })
@@ -63,30 +61,21 @@ export class SignInScene extends Phaser.Scene {
                                         onComplete: function () { element.setVisible(false) }
                                     })
                                     element.removeListener('click')
-                                    console.log(gameState.userData)
                                     return res
                                 }
                             })
                             .then(res => {
-                                console.log(res.ok)
                                 return res.json().then(data => {
                                     gameState.user = data
                                     return data
                                 })
                             })
-                            .catch(console.error)
                     }
                     signInData()
                         .then(data => {
                             gameState.userData = data
 
                         })
-                    // if (gameState.proceed === true) {
-                    //     console.log('why this not working')
-                    //     gameState.proceed = false
-                    //     this.removeListener('click')
-
-                    // }
                 } else {
                     gameState.message.setText('You must enter something in these fields!').setPosition(400, 700)
                 }
