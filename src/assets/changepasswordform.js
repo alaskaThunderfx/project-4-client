@@ -1,5 +1,6 @@
-<style>
-    .sign-in {
+export const changePasswordForm =
+`<style>
+    .change-password {
       background: #eceeee;
       background-image: url("https://www.crushpixel.com/big-static12/preview4/cute-crab-seamless-pattern-background-1094030.jpg");
       background-size: contain;
@@ -9,7 +10,7 @@
       margin: 20px auto 0;
       width: 298px;
     }
-    .sign-in h1 {
+    .change-password h1 {
       background-image: linear-gradient(top, #f1f3f3, #d4dae0);
       border-bottom: 1px solid #a6abaf;
       border-radius: 6px 6px 0 0;
@@ -120,10 +121,10 @@
 
     </style>
     
-    <div class="sign-in">
-        <input type="text" placeholder="Username" id="username" name="username">
-        <input type="password" placeholder="Password" id="password" name="password">
-        <input type="submit" value="Sign In" name="signinButton">
+    <div class="change-password">
+        <input type="password" placeholder="Old Password" id="password" name="password">
+        <input type="password" placeholder="New password" id="new-password" name="new-password">
+        <input type="submit" value="Change Password" name="changepasswordButton">
         <button name="gobackButton">Go Back</button>
     </div>
-    <div class="shadow"></div>
+    <div class="shadow"></div>`
