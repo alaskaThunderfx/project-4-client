@@ -33,6 +33,7 @@ export class SignUpScene extends Phaser.Scene {
                 const inputConfirmPassword = this.getChildByName('confirm-password')
                 if (inputUsername.value !== '' && inputPassword.value !== '' && inputConfirmPassword.value !== '') {
                     if (inputPassword.value === inputConfirmPassword.value) {
+                        gameState.signedUpName = inputUsername.value
                         gameState.toggleInteractive = true
                         this.removeListener('click')
                         this.scene.tweens.add({ targets: element.rotate3d, x: 1, w: 90, duration: 3000, ease: 'Power3' })
@@ -56,7 +57,7 @@ export class SignUpScene extends Phaser.Scene {
                             body: userData
                         })
                             .then(res => {
-                                gameState.message.setText(`Thank you for signing up, ${gameState.signedUp}! Please click 'Returning User' to sign in!`)
+                                gameState.message.setText(`Thank you for signing up, ${gameState.signedUpName}! Please click 'Returning User' to sign in!`)
 
                             })
                     } else {
