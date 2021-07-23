@@ -50,6 +50,7 @@ export class ChangePasswordScene extends Phaser.Scene {
                                 gameState.message.setText('There was an issue changing your password! Please try again').setPosition(400, 700)
                                 throw Error(res.statusText)
                             } else {
+                                gameState.message.setText('Password changed successfully!')
                                 gameState.toggleInteractive = true
                                 this.scene.tweens.add({ targets: element.rotate3d, x: 1, w: 90, duration: 3000, ease: 'Power3' })
                                 this.scene.tweens.add({
