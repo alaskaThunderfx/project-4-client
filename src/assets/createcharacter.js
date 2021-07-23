@@ -1,4 +1,5 @@
-<style>
+export const createCharacterForm =
+`<style>
     .create-character {
       background: #eceeee;
       background-image: url("https://www.crushpixel.com/big-static12/preview4/cute-crab-seamless-pattern-background-1094030.jpg");
@@ -125,4 +126,4 @@
         <input type="submit" value="Create Character" name="createcharacterButton">
         <button name="gobackButton">Go Back</button>
     </div>
-    <div class="shadow"></div>
+    <div class="shadow"></div>`

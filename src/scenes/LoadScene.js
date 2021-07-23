@@ -1,4 +1,8 @@
-import { CST, gameState } from "../CST"
+import { CST } from "../CST"
+import { signUpForm } from "../assets/signupform"
+import { signInForm } from "../assets/signinform"
+import { changePasswordForm } from "../assets/changepasswordform"
+import { createCharacterForm } from "../assets/createcharacter"
 
 export class LoadScene extends Phaser.Scene{
     constructor() {
@@ -10,10 +14,10 @@ export class LoadScene extends Phaser.Scene{
 
     }
     preload() {
-        this.load.html('sign-up', 'https://github.com/alaskaThunderfx/project-4-client/src/assets/signupform.html')
-        this.load.html('sign-in', 'https://github.com/alaskaThunderfx/project-4-client/src/assets/signinform.html')
-        this.load.html('change-password', 'https://github.com/alaskaThunderfx/project-4-client/src/assets/changepasswordform.html')
-        this.load.html('create-character', 'https://github.com/alaskaThunderfx/project-4-client/src/assets/createcharacter.html')
+        this.cache.html.add('sign-up', signUpForm)
+        this.cache.html.add('sign-in', signInForm)
+        this.cache.html.add('change-password', changePasswordForm)
+        this.cache.html.add('create-character', createCharacterForm)
         this.load.image('bg', 'https://i.imgur.com/SAKDIFy.png')
         this.load.image('logo', 'https://i.imgur.com/XB8YvO0.png')
         this.load.image('starfish', 'https://i.imgur.com/Hpnxa6Y.png')

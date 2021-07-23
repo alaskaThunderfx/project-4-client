@@ -1,4 +1,5 @@
-<style>
+export const signUpForm =
+  `<style>
     .sign-up {
       background: #eceeee;
       background-image: url("https://www.crushpixel.com/big-static12/preview4/cute-crab-seamless-pattern-background-1094030.jpg");
@@ -127,4 +128,4 @@
         <input type="submit" value="Sign Up" name="signupButton">
         <button name="gobackButton">Go Back</button>
     </div>
-    <div class="shadow"></div>
+    <div class="shadow"></div>`
