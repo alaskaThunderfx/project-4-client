@@ -10,10 +10,10 @@ export class LoadScene extends Phaser.Scene{
 
     }
     preload() {
-        this.load.html('sign-up', 'https://github.com/alaskaThunderfx/project-4-client/blob/main/src/assets/signupform.html')
-        this.load.html('sign-in', 'https://github.com/alaskaThunderfx/project-4-client/blob/main/src/assets/signinform.html')
-        this.load.html('change-password', 'https://github.com/alaskaThunderfx/project-4-client/blob/main/src/assets/changepasswordform.html')
-        this.load.html('create-character', 'https://github.com/alaskaThunderfx/project-4-client/blob/main/src/assets/createcharacter.html')
+        this.load.html('sign-up', 'https://github.com/alaskaThunderfx/project-4-client/src/assets/signupform.html')
+        this.load.html('sign-in', 'https://github.com/alaskaThunderfx/project-4-client/src/assets/signinform.html')
+        this.load.html('change-password', 'https://github.com/alaskaThunderfx/project-4-client/src/assets/changepasswordform.html')
+        this.load.html('create-character', 'https://github.com/alaskaThunderfx/project-4-client/src/assets/createcharacter.html')
         this.load.image('bg', 'https://i.imgur.com/SAKDIFy.png')
         this.load.image('logo', 'https://i.imgur.com/XB8YvO0.png')
         this.load.image('starfish', 'https://i.imgur.com/Hpnxa6Y.png')
